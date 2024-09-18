@@ -7,10 +7,7 @@ __pycache__/
 *.so
 
 # Ignore Project Datasets
-Dataset/
-
-# Ignore Dump Files
-Dump/
+data/
 
 # Distribution / packaging
 .Python
