@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendation System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .card-img {
+            height: 300px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-gray-900 font-sans">
+
+    <nav class="bg-blue-900 text-white p-4 shadow-md">
+        <div class="px-4 md:px-8">
+            <div class="flex justify-between items-center">
+                <a class="text-2xl font-bold" href="/">Book Recommendation System</a>
+                <ul class="flex space-x-6 items-center">
+                    <li><a href="/" class="bg-blue-800 px-5 py-2 rounded-md hover:bg-blue-700 transition-colors">Home</a></li>
+                    <li><a href="/recommendation" class="bg-blue-800 px-5 py-2 rounded-md hover:bg-blue-700 transition-colors">Get Recommendations</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto my-12 px-4 md:px-8">
+        <h1 class="text-blue-900 text-4xl font-extrabold mb-8 text-center">Get Recommendations</h1>
+        <form action="/recommendation" method="post" class="mb-8 text-center">
+            <input name="user_input" type="text" class="w-full max-w-lg mb-4 p-2 rounded-md text-gray-900 border-gray-300" placeholder="Enter book name">
+            <input type="submit" class="bg-blue-800 text-white px-6 py-2 rounded-md text-lg font-bold hover:bg-blue-700 transition-colors">
+        </form>
+
+        <p class="text-center text-gray-700 mb-4">Search results for Book: <span class="font-semibold">{{ query }}</span></p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+            {% if data %}
+            {% for i in data %}
+            <div class="card bg-white rounded-lg shadow-lg overflow-hidden max-w-md w-full">
+                <img class="card-img w-full" src="{{i[2]}}" alt="Book image">
+                <div class="p-6 text-left">
+                    <p class="text-gray-700 text-base mb-2 font-semibold">{{i[0]}}</p>
+                    <h4 class="text-gray-900 text-xl font-bold">{{i[1]}}</h4>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p class="text-center text-red-500">{{ error }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+
+</html>
